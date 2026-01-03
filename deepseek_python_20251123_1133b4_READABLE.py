@@ -9337,7 +9337,11 @@ class AutonomousScheduler:
         
         logger.info("Autonomous scheduler started")
         return True
-    
+    def start(self):  # ← ADD THIS EXACTLY
+        """Entry point fix for main.py"""
+        logger.info("🚀 AUTONOMOUS SCHEDULER LIVE - Full attack chain")
+        return self.start_autonomous_operation()
+     
     def _scheduler_loop(self):
         while self.is_running:
             try:
